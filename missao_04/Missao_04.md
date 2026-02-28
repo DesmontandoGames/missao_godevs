@@ -1,4 +1,8 @@
-<img src="./assets/preview.png" alt="Print da Página de Formulário" width="50%">
+<div align="center">
+  <img src="./assets/preview.png" alt="Print da Página de Formulário" width="75%">
+  <br>
+  <sup>Formulário Minimalista.</sup>
+</div>
 
 # 🚀 **Missão do Dia: Validação Simples de Formulário**
 
