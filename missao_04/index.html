@@ -11,6 +11,54 @@
   <style>
     body { font-family: 'Geist Mono', monospace; }
 
+    /* Componente: Voltar ao Hub */
+    .md-back-link {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      color: #000;
+      
+      padding: 10px 15px;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px); /* Efeito de vidro fosco moderno */
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    .md-back-link span {
+      transition: transform 0.4s ease;
+    }
+    
+    .md-back-link:hover {
+      background-color: #000;
+      color: #fff;
+      border-color: #000;
+    }
+    
+    .md-back-link:hover span {
+      transform: translateX(-5px); /* A seta se move sutilmente para a esquerda */
+    }
+    
+    /* Esconder o botão em telas muito pequenas se necessário, ou ajustar posição */
+    @media (max-width: 600px) {
+      .md-back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 10px;
+      }
+    }
+
     input:focus, textarea:focus { outline: none !important; }
 
     /* ── Autofill blindagem ── */
@@ -64,6 +112,10 @@
   </style>
 </head>
 <body class="bg-black text-white antialiased">
+
+  <a href="../index.html" class="md-back-link">
+  <span>&larr;</span> Voltar ao Hub
+  </a>
 
   <section class="max-w-5xl mx-auto px-6 py-20">
     
