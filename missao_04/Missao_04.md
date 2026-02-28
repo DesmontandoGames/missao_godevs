@@ -1,4 +1,4 @@
-![Preview](assets/preview.png)
+![Preview](assets/preview.png | width=256)
 
 # 🚀 **Missão do Dia: Validação Simples de Formulário**
 
