@@ -1,4 +1,4 @@
-![Preview](assets/preview.png | width=256)
+<img src="./assets/preview.png" alt="Print da Página de Formulário" width="50%">
 
 # 🚀 **Missão do Dia: Validação Simples de Formulário**
 
