@@ -1,45 +1,162 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missões Desmontando Games</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            line-height: 1.6;
-        }
-        h1 {
-            text-align: center;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin: .5rem 0;
-        }
-        a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missões Dev | Dashboard de Desafios</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* === DESIGN TOKENS (Mendo-Lib Core) === */
+    :root {
+      --md-bg: #ffffff;
+      --md-text: #000000;
+      --md-accent: #5e6264;
+      --font-headings: 'Jost', sans-serif;
+      --spacing-section: 10vh;
+      --grid-gap: 30px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background-color: var(--md-bg);
+      color: var(--md-text);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .md-container { max-width: 1400px; margin: 0 auto; padding: 0 5vw; }
+
+    /* === HEADER ESTILO AWWWARDS === */
+    .md-header {
+      padding: 40px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .md-logo {
+      font-family: var(--font-headings);
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .md-stats {
+      font-family: var(--font-headings);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--md-accent);
+    }
+
+    /* === GRID DE MISSÕES === */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gap);
+      padding: var(--spacing-section) 0;
+    }
+
+    /* Card de Missão Individual */
+    .mission-card {
+      grid-column: span 4; /* 3 colunas por linha */
+      border-bottom: 1px solid #eee;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Efeito de Escada (Assimetria Mendo) */
+    .mission-card:nth-child(2n) { margin-top: 60px; }
+
+    .mission-number {
+      font-family: var(--font-headings);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--md-accent);
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .mission-title {
+      font-family: var(--font-headings);
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .mission-status {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .status-completed { color: #2ecc71; }
+    .status-pending { color: #f1c40f; }
+
+    /* Hover Effects */
+    .mission-card:hover {
+      border-bottom-color: var(--md-text);
+      transform: translateY(-5px);
+    }
+
+    .mission-card:hover .mission-title {
+      padding-left: 10px;
+      transition: padding 0.3s ease;
+    }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
+      .mission-card { grid-column: span 6; }
+      .mission-card:nth-child(2n) { margin-top: 0; }
+    }
+    @media (max-width: 600px) {
+      .mission-card { grid-column: span 12; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Projetos / Missões</h1>
-    <p>Selecione abaixo a missão que deseja visualizar:</p>
-    <ul>
-        <li><a href="/missao_04/index.html">Missão 04</a></li>
-        <!-- adicione outros itens conforme forem criadas as pastas -->
-    </ul>
-    <footer>
-        <p>Este repositório está configurado para ser hospedado com GitHub Pages na branch <code>main</code> (ou <code>docs/</code>). Não esqueça de ativar o Pages nas configurações.</p>
-    </footer>
+
+  <header class="md-header">
+    <div>
+      <h1 class="md-logo">Desafios GoDevs</h1>
+      <p style="font-size: 12px; color: var(--md-accent);">JOURNEY LOG 2026</p>
+    </div>
+    <div class="md-stats">
+      Missões Concluídas: <strong>01</strong> 
+    </div>
+  </header>
+
+  <main class="md-container">
+    
+    <div class="mission-grid">
+
+      <a href="./missao_04/index.html" class="mission-card">
+        <span class="mission-number">04</span>
+        <span class="mission-title">Validação de Formulário</span>
+        <span class="mission-status status-completed">● Concluído</span>
+      </a>
+
+      </div>
+
+  </main>
+
+  <footer style="padding: 100px 5vw 40px; text-align: center; font-size: 12px; color: var(--md-accent); text-transform: uppercase; letter-spacing: 2px;">
+    &copy; 2026
+  </footer>
+
 </body>
 </html>
