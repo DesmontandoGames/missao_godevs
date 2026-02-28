@@ -1,6 +1,8 @@
-🚀 Missão do Dia: Validação Simples de Formulário
-Evite o envio de formulários com campos vazios na seção de contato.
-🛠️ Requisitos Técnicos:
-• Intercepte o evento submit do formulário.
-• Verifique se o campo de nome e e-mail não estão vazios.
-• Exiba uma mensagem de erro visual caso falte algo.
+🚀 **Missão do Dia: Validação Simples de Formulário**
+
+O objetivo desta tarefa é implementar uma checagem básica de campos em um formulário de contato para que o usuário não consiga enviar dados incompletos ou mal formatados. O foco é o lado do cliente (JavaScript), com feedback visual direto na interface.
+
+### 📁 Arquivos envolvidos
+
+- `index.html` — estrutura e estilos (Tailwind) do formulário
+- `script.js` — onde toda a lógica descrita acima deve residir

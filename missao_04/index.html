@@ -3,37 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DValidação Simples de Formulário</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>Minimalist Contact</title>
+  <style>
+    body { font-family: 'Geist Mono', monospace; }
+
+    input:focus, textarea:focus { outline: none !important; }
+
+    /* ── Autofill blindagem ── */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active,
+    body input:-webkit-autofill,
+    body input:-webkit-autofill:hover,
+    body input:-webkit-autofill:focus,
+    body input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+      -webkit-text-fill-color: #fff !important;
+      transition: background-color 99999s ease-in-out 0s,
+                  color 99999s ease-in-out 0s !important;
+      caret-color: #fff !important;
+    }
+
+    input:-webkit-autofill::first-line,
+    body input:-webkit-autofill::first-line {
+      font-family: 'Geist Mono', monospace !important;
+      font-size: 1.125rem !important;
+      font-weight: 300 !important;
+      color: #fff !important;
+    }
+
+    /* ── Submit underline progressivo ── */
+    .submit-label {
+      position: relative;
+      padding-bottom: 1px;
+    }
+
+    .submit-label::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 1px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    button[type="submit"]:hover .submit-label::after {
+      transform: scaleX(1);
+    }
+
+    /* ── Textarea auto-resize ── */
+    textarea { resize: none; overflow: hidden; }
+  </style>
 </head>
-<body>
+<body class="bg-black text-white antialiased">
 
-  <section class="chic-container contact-section">
-    <div class="form-wrapper">
-      <h2 class="form-title">Fale Conosco</h2>
-      <p class="form-subtitle">Assine nossa newsletter ou entre em contato.</p>
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    
+    <div class="text-center mb-4">
+      <span class="text-[9px] tracking-[0.35em] uppercase text-zinc-500">envie-nos uma mensagem</span>
+    </div>
+    <hr class="border-zinc-800 mb-16">
 
-      <div id="successMessage" class="success-msg hidden">
-        Mensagem enviada com sucesso!
+    <form id="contactForm" class="space-y-16" novalidate>
+      
+      <div class="group flex flex-col border-b border-zinc-700 focus-within:border-white transition-colors duration-300">
+          <label for="name" class="text-[9px] tracking-[0.3em] uppercase text-zinc-500 mb-1 transition-colors duration-200 group-focus-within:text-white">Nome Completo</label>
+          <input type="text" id="name" name="name" autocomplete="name" class="bg-transparent py-1 text-white text-lg font-light">
+          <span id="name-err" class="text-red-600 text-[10px] mt-2 uppercase tracking-[0.2em] leading-none transition-all duration-300 opacity-0 min-h-[16px]"></span>
+        </div>
+
+      <div class="group flex flex-col border-b border-zinc-700 focus-within:border-white transition-colors duration-300">
+        <label for="email" class="text-[9px] tracking-[0.3em] uppercase text-zinc-500 mb-1 transition-colors duration-200 group-focus-within:text-white">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" class="bg-transparent py-1 text-white text-lg font-light">
+        <span id="email-err" class="text-red-600 text-[10px] mt-2 uppercase tracking-[0.2em] leading-none transition-all duration-300 opacity-0 min-h-[16px]"></span>
       </div>
 
-      <form id="contactForm" novalidate>
-        
-        <div class="input-group">
-          <label for="name">Nome</label>
-          <input type="text" id="name" name="name" placeholder="Seu nome completo">
-          <span class="error-msg" id="nameError">* O nome é obrigatório.</span>
-        </div>
+      <div class="group flex flex-col border-b border-zinc-700 focus-within:border-white transition-colors duration-300">
+        <label for="message" class="text-[9px] tracking-[0.3em] uppercase text-zinc-500 mb-1 transition-colors duration-200 group-focus-within:text-white">Mensagem</label>
+        <textarea id="message" name="message" rows="1" class="bg-transparent py-1 text-white text-lg font-light leading-relaxed"></textarea>
+        <span id="message-err" class="text-red-600 text-[10px] mt-2 uppercase tracking-[0.2em] leading-none transition-all duration-300 opacity-0 min-h-[16px]"></span>
+      </div>
 
-        <div class="input-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="seu@email.com">
-          <span class="error-msg" id="emailError">* O e-mail é obrigatório.</span>
-        </div>
+      <div class="pt-4">
+        <button type="submit" class="text-[10px] tracking-[0.3em] uppercase text-white flex items-center">
+          <span class="text-zinc-100">[&nbsp;</span>
+          <span class="submit-label">Submit Form</span>
+          <span class="text-zinc-100">&nbsp;]</span>
+        </button>
+      </div>
 
-        <button type="submit" class="mendo-btn form-btn">Enviar Mensagem</button>
-      
-      </form>
+    </form>
+
+    <div id="successMsg" class="hidden mt-10 text-[10px] tracking-[0.2em] uppercase text-zinc-400 animate-pulse">
+      // Message sent successfully.
     </div>
   </section>
 

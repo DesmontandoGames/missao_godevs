@@ -1,86 +1,89 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Mapeando os elementos do DOM
   const form = document.getElementById('contactForm');
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
-  
-  const nameError = document.getElementById('nameError');
-  const emailError = document.getElementById('emailError');
-  const successMessage = document.getElementById('successMessage');
+  const successMsg = document.getElementById('successMsg');
 
-  // Padrões Regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // Regex para Nome: Aceita letras (maiúsculas e minúsculas), acentos em português e espaços. Rejeita números e símbolos.
-  const nameRegex = /^[a-zA-ZÀ-ÿ\s]+$/;
+  const rules = {
+    name: {
+      regex: /^[a-zA-ZÀ-ÿ\s]{2,}$/,
+      error: "// Por favor, digite seu nome"
+    },
 
-  // 2. Função para limpar os erros visuais enquanto o usuário digita
-  const clearErrorOnInput = (inputElement, errorElement) => {
-    inputElement.addEventListener('input', () => {
-      inputElement.classList.remove('input-error');
-      errorElement.style.display = 'none';
-    });
+    email: {
+      regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      error: "// Verifique o formato do endereço de email"
+    },
+
+    // Mensagem: 10 caracteres garante uma frase mínima, mas para teste vou deixar mais flexível
+    message: {
+      regex: /.{3,}/,
+      error: "// Conte-nos um pouco mais"
+    }
   };
 
-  clearErrorOnInput(nameInput, nameError);
-  clearErrorOnInput(emailInput, emailError);
+  const setUIError = (id, message, isError) => {
+    const input = document.getElementById(id);
+    const container = input.parentElement;
+    const errorDisplay = document.getElementById(`${id}-err`);
 
-  // 3. Interceptando o envio do formulário
-  form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Impede a página de recarregar
-
-    let isValid = true;
-    const nameValue = nameInput.value.trim();
-    const emailValue = emailInput.value.trim();
-
-    // 4. Validando o Nome (Vazio, Curto ou com Números/Símbolos)
-    if (nameValue === '') {
-      nameInput.classList.add('input-error');
-      nameError.textContent = '* O nome é obrigatório.';
-      nameError.style.display = 'block';
-      isValid = false;
-    } else if (nameValue.length < 3) {
-      nameInput.classList.add('input-error');
-      nameError.textContent = '* O nome deve ter pelo menos 3 letras.';
-      nameError.style.display = 'block';
-      isValid = false;
-    } else if (!nameRegex.test(nameValue)) {
-      // Se tiver números como "GatinhaManhosa123" ou símbolos como "@", cai aqui
-      nameInput.classList.add('input-error');
-      nameError.textContent = '* O nome deve conter apenas letras.';
-      nameError.style.display = 'block';
-      isValid = false;
+    if (isError) {
+      container.classList.remove('border-zinc-700');
+      container.classList.add('border-red-600');
+      errorDisplay.textContent = message;
+      errorDisplay.classList.remove('opacity-0');
+    } else {
+      container.classList.remove('border-red-600');
+      container.classList.add('border-zinc-700');
+      errorDisplay.classList.add('opacity-0');
     }
+  };
 
-    // 5. Validando o E-mail (Vazio ou Formato Inválido)
-    if (emailValue === '') {
-      emailInput.classList.add('input-error');
-      emailError.textContent = '* O e-mail é obrigatório.';
-      emailError.style.display = 'block';
-      isValid = false;
-    } else if (!emailRegex.test(emailValue)) {
-      emailInput.classList.add('input-error');
-      emailError.textContent = '* Digite um e-mail válido (ex: nome@email.com).';
-      emailError.style.display = 'block';
-      isValid = false;
+  // Auto-resize textarea
+  const textarea = document.getElementById('message');
+  textarea.addEventListener('input', () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  });
+
+  // Limpa o erro ao digitar
+  Object.keys(rules).forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('input', () => setUIError(id, '', false));
     }
+  });
 
-    // 6. Se tudo estiver correto, simulamos o envio
-    if (isValid) {
-      console.log('Dados prontos para envio:', {
-        name: nameValue,
-        email: emailValue
-      });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-      // Mostra a mensagem de sucesso
-      successMessage.classList.remove('hidden');
-      
-      // Limpa os campos do formulário
-      form.reset();
+    let formIsValid = true;
 
-      // Oculta a mensagem de sucesso após 3.5 segundos
+    Object.keys(rules).forEach(id => {
+      const field = document.getElementById(id);
+      const value = field.value.trim();
+
+      if (!value) {
+        setUIError(id, "// Campo obrigatório", true);
+        formIsValid = false;
+      } else if (!rules[id].regex.test(value)) {
+        setUIError(id, rules[id].error, true);
+        formIsValid = false;
+      }
+    });
+
+    if (formIsValid) {
+      form.style.opacity = "0.2";
+      form.style.pointerEvents = "none";
+      successMsg.classList.remove('hidden');
+
+      console.log('// Transmission complete');
+
       setTimeout(() => {
-        successMessage.classList.add('hidden');
-      }, 3500);
+        form.reset();
+        form.style.opacity = "1";
+        form.style.pointerEvents = "all";
+        successMsg.classList.add('hidden');
+        textarea.style.height = 'auto';
+      }, 4000);
     }
   });
 });
