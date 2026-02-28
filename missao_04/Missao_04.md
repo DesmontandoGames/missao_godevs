@@ -1,7 +1,6 @@
 <div align="center">
   <img src="./assets/mockup_preview.png" alt="Print da Página de Formulário" width="100%">
   <br>
-  <sup>Formulário Minimalista.</sup>
 </div>
 
 # 🚀 **Missão do Dia: Validação Simples de Formulário**
